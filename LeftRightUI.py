@@ -128,15 +128,15 @@ if user_number:
             private_key = st.secrets["private_key"].replace('\\n', '\n')
             cred = credentials.Certificate({
                 "type": "service_account",
-                "project_id": "llm-course-ec905",
-                "private_key_id": "a2373c203ab8d7b4c51e50e93b9fa4d8eb9c606b",
+                "project_id": "llm-relationship",
+                "private_key_id": "770f8e195ab1bba877187f0ed16c68f0c3ec8c05",
                 "private_key": private_key,
-                "client_email": "firebase-adminsdk-xiu4n@llm-course-ec905.iam.gserviceaccount.com",
-                "client_id": "105987466166041654002",
+                "client_email": "firebase-adminsdk-3n06z@llm-relationship.iam.gserviceaccount.com",
+                "client_id": "108943603880556393851",
                 "auth_uri": "https://accounts.google.com/o/oauth2/auth",
                 "token_uri": "https://oauth2.googleapis.com/token",
                 "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-                "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-xiu4n%40llm-course-ec905.iam.gserviceaccount.com",
+                "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-3n06z%40llm-relationship.iam.gserviceaccount.com",
                 "universe_domain": "googleapis.com"
             }) 
             default_app = firebase_admin.initialize_app(cred)
