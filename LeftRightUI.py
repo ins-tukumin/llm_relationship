@@ -201,7 +201,7 @@ if user_number:
             default_app = firebase_admin.initialize_app(cred)
     db = firestore.client()
 
-    generate_initial_message()
+    #generate_initial_message()
     #doc_ref = db.collection(user_number)
     #doc_ref = db.collection(u'tour').document(str(now))
 
@@ -220,7 +220,7 @@ if user_number:
 
     # 初回アクセス時の挨拶メッセージが表示された後にセッションステートを更新
     if not st.session_state['initialized']:
-    st.session_state['initialized'] = True
+        st.session_state['initialized'] = True
 
     # 質問入力欄と送信ボタンを設置
     with st.container():
