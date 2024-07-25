@@ -29,14 +29,6 @@ if "generated" not in st.session_state:
 if "past" not in st.session_state:
     st.session_state.past = []
 
-if "initialized" not in st.session_state:
-    st.session_state['initialized'] = False
-    initial_message = "今回はあなたの{worry}について会話しましょう。気軽に話してね"
-    st.session_state.initge.append(initial_message)
-#    #st.session_state.past.append("")
-#    message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
-    st.session_state['initialized'] = True
-
 # クエリパラメータからユーザーIDを取得
 query_params = st.experimental_get_query_params()
 user_number = query_params.get('user_id', [None])[0]
@@ -73,9 +65,17 @@ else:
 #from dotenv import load_dotenv
 #load_dotenv()
 
+if "initialized" not in st.session_state:
+    st.session_state['initialized'] = False
+    initial_message = f"今回はあなたの{st.session_state.worry}について会話しましょう。気軽に話してね"
+    st.session_state.initge.append(initial_message)
+#    #st.session_state.past.append("")
+#    message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
+    st.session_state['initialized'] = True
+
 #プロンプトテンプレートを作成
-template = """
-    この会話では私のお悩み相談に乗ってほしいです。悩みは{worry}です。
+template = f"""
+    この会話では私のお悩み相談に乗ってほしいです。悩みは{st.session_state.worry}です。
     敬語は使わないでください。私の友達になったつもりで砕けた口調で話してください。
     150~200字程度で話してください。
     日本語で話してください。
