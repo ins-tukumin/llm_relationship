@@ -23,6 +23,11 @@ import time
 global now
 now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
 
+if "generated" not in st.session_state:
+    st.session_state.generated = []
+if "past" not in st.session_state:
+    st.session_state.past = []
+
 if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
     initial_message = "こんにちは、素晴らしい会話をしよう！"
@@ -128,10 +133,10 @@ def load_conversation():
   
 
 # 質問と回答を保存するための空のリストを作成
-if "generated" not in st.session_state:
-    st.session_state.generated = []
-if "past" not in st.session_state:
-    st.session_state.past = []
+#if "generated" not in st.session_state:
+#    st.session_state.generated = []
+#if "past" not in st.session_state:
+#    st.session_state.past = []
     
 # 会話のターン数をカウント
 if 'count' not in st.session_state:
