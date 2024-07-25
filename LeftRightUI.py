@@ -23,6 +23,11 @@ import time
 global now
 now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
 
+if 'initialized' not in st.session_state:
+    st.session_state['initialized'] = False
+    st.session_state['generated'] = ["おはようございます！お悩み相談をしましょう！"]  # 初回挨拶メッセージ
+    st.session_state['past'] = []
+
 # 環境変数の読み込み
 #from dotenv import load_dotenv
 #load_dotenv()
@@ -108,18 +113,15 @@ def load_conversation():
     return st.session_state.conversation
 
 # 初期メッセージを生成
-def generate_initial_message():
-    if 'initial_message' not in st.session_state:
-        conversation = load_conversation()
-        initial_message = conversation.predict(input="こんにちは、素晴らしい会話をしよう！")
-        st.session_state.generated.append(initial_message)
-        st.session_state.past.append("")
-        st.session_state.initial_message = True
+#def generate_initial_message():
+#    if 'initial_message' not in st.session_state:
+#        conversation = load_conversation()
+#        initial_message = conversation.predict(input="こんにちは、素晴らしい会話をしよう！")
+#        st.session_state.generated.append(initial_message)
+#        st.session_state.past.append("")
+#        st.session_state.initial_message = True
         
-        initial_message = "こんにちは、今日はどうしたの？"
-        st.session_state.generated.append(initial_message)
-        st.session_state.past.append("AI: こんにちは、今日はどうしたの？")
-        st.session_state.initial_message = True
+  
 
 # 質問と回答を保存するための空のリストを作成
 if "generated" not in st.session_state:
@@ -208,10 +210,17 @@ if user_number:
 
     # 会話履歴を表示
     with chat_placeholder.container():
-        for i in range(len(st.session_state.generated)):
-            message(st.session_state.past[i],is_user=True, key=str(i), avatar_style="adventurer", seed="Nala")
-            key_generated = str(i) + "keyg"
-            message(st.session_state.generated[i], key=str(key_generated), avatar_style="micah")
+        if st.session_state['initialized']:
+            for i in range(len(st.session_state.generated)):
+                message(st.session_state.past[i],is_user=True, key=str(i), avatar_style="adventurer", seed="Nala")
+                key_generated = str(i) + "keyg"
+                message(st.session_state.generated[i], key=str(key_generated), avatar_style="micah")
+            else:
+                message(st.session_state.generated[0], key="init_greeting", avatar_style="micah")
+
+    # 初回アクセス時の挨拶メッセージが表示された後にセッションステートを更新
+    if not st.session_state['initialized']:
+    st.session_state['initialized'] = True
 
     # 質問入力欄と送信ボタンを設置
     with st.container():
