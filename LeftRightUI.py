@@ -113,7 +113,12 @@ def generate_initial_message():
         conversation = load_conversation()
         initial_message = conversation.predict(input="こんにちは、素晴らしい会話をしよう！")
         st.session_state.generated.append(initial_message)
-        st.session_state.past.append("こんにちは、素晴らしい会話をしよう！")
+        st.session_state.past.append("")
+        st.session_state.initial_message = True
+        
+        initial_message = "こんにちは、今日はどうしたの？"
+        st.session_state.generated.append(initial_message)
+        st.session_state.past.append("AI: こんにちは、今日はどうしたの？")
         st.session_state.initial_message = True
 
 # 質問と回答を保存するための空のリストを作成
