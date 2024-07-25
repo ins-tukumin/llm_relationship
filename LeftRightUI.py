@@ -42,6 +42,19 @@ query_params = st.experimental_get_query_params()
 user_number = query_params.get('user_id', [None])[0]
 is_second = 'second' in query_params
 
+# worry.txtファイルを読み込み
+def load_worries(file_path):
+    worries = {}
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            user_id, worry = line.strip().split(',', 1)  # 一行ずつ読み込み、カンマで分割
+            worries[int(user_id)] = worry  # 辞書に格納
+    return worries
+
+# 特定のユーザーIDに対応する悩みテーマを取得
+def get_user_worry(user_id, worries):
+    return worries.get(user_id, None)
+
 if is_second:
     # データを読み込み
     file_path = 'worry2.txt'  # 読み込むファイルのパスを指定
@@ -160,19 +173,6 @@ def load_conversation():
 # 会話のターン数をカウント
 if 'count' not in st.session_state:
     st.session_state.count = 0
-
-# worry.txtファイルを読み込み
-def load_worries(file_path):
-    worries = {}
-    with open(file_path, 'r', encoding='utf-8') as file:
-        for line in file:
-            user_id, worry = line.strip().split(',', 1)  # 一行ずつ読み込み、カンマで分割
-            worries[int(user_id)] = worry  # 辞書に格納
-    return worries
-
-# 特定のユーザーIDに対応する悩みテーマを取得
-def get_user_worry(user_id, worries):
-    return worries.get(user_id, None)
 
 # 送信ボタンがクリックされた後の処理を行う関数を定義
 def on_input_change():
