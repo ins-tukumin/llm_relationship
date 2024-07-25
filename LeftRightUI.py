@@ -29,13 +29,13 @@ if "generated" not in st.session_state:
 if "past" not in st.session_state:
     st.session_state.past = []
 
-#if "initialized" not in st.session_state:
-#    st.session_state['initialized'] = False
-#    initial_message = "こんにちは、素晴らしい会話をしよう！"
-#    st.session_state.initge.append(initial_message)
+if "initialized" not in st.session_state:
+    st.session_state['initialized'] = False
+    initial_message = "こんにちは、素晴らしい会話をしよう！"
+    st.session_state.initge.append(initial_message)
 #    #st.session_state.past.append("")
 #    message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
-#   st.session_state['initialized'] = True
+    st.session_state['initialized'] = True
     
 
 # 環境変数の読み込み
