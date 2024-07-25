@@ -61,14 +61,14 @@ if is_second:
     if 'worries' not in st.session_state:
         st.session_state.worries = load_worries(file_path)
     if 'worry' not in st.session_state:
-        st.session_state.worry = get_user_worry(user_number, worries)
+        st.session_state.worry = get_user_worry(user_number, st.session_state.worries)
 else:
     # データを読み込み
     file_path = 'worry1.txt'  # 読み込むファイルのパスを指定
     if 'worries' not in st.session_state:
         st.session_state.worries = load_worries(file_path)
     if 'worry' not in st.session_state:
-        st.session_state.worry = get_user_worry(user_number, worries)
+        st.session_state.worry = get_user_worry(user_number, st.session_state.worries)
 # 環境変数の読み込み
 #from dotenv import load_dotenv
 #load_dotenv()
