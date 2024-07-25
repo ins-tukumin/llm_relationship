@@ -220,7 +220,7 @@ if user_number:
 
     # 会話履歴を表示
     with chat_placeholder.container():
-        message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
+        message(st.session_state.initge[0], key="init_greeting_plus", avatar_style="micah")
         for i in range(len(st.session_state.generated)):
             # message(st.session_state.initge[0], key="init_greeting"+str(i), avatar_style="micah")
             message(st.session_state.past[i],is_user=True, key=str(i), avatar_style="adventurer", seed="Nala")
