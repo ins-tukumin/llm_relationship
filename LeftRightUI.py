@@ -25,8 +25,9 @@ now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
 
 if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
-    st.session_state['generated'] = ["おはようございます！お悩み相談をしましょう！"]  # 初回挨拶メッセージ
-    st.session_state['past'] = []
+    initial_message = conversation.predict(input="こんにちは、素晴らしい会話をしよう！")
+    st.session_state.generated.append(initial_message)
+    st.session_state.past.append("")
     message(st.session_state.generated[0], key="init_greeting", avatar_style="micah")
     st.session_state['initialized'] = True
     
