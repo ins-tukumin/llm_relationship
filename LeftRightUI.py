@@ -107,6 +107,15 @@ def load_conversation():
             llm=llm)
     return st.session_state.conversation
 
+# 初期メッセージを生成
+def generate_initial_message():
+    if 'initial_message' not in st.session_state:
+        conversation = load_conversation()
+        initial_message = conversation.predict(input="こんにちは、素晴らしい会話をしよう！")
+        st.session_state.generated.append(initial_message)
+        st.session_state.past.append("こんにちは、素晴らしい会話をしよう！")
+        st.session_state.initial_message = True
+
 # 質問と回答を保存するための空のリストを作成
 if "generated" not in st.session_state:
     st.session_state.generated = []
@@ -154,9 +163,18 @@ def on_input_change():
 # st.title("ChatApp")
 # st.caption("Q&A")
 # st.write("議論を行いましょう！")
-user_number = st.text_input("IDを半角で入力してエンターを押してください")
+# user_number = st.text_input("IDを半角で入力してエンターを押してください")
+
+# クエリパラメータからユーザーIDを取得
+query_params = st.experimental_get_query_params()
+user_number = query_params.get('user_id', [None])[0]
+
+# ユーザーIDがない場合にのみ入力フィールドを表示
+if not user_number:
+    user_number = st.text_input("IDを半角で入力してエンターを押してください")
+
 if user_number:
-    # st.write(f"こんにちは、{user_number}さん！")
+    st.write(f"こんにちは、{user_number}さん！")
     # 初期済みでない場合は初期化処理を行う
     if not firebase_admin._apps:
             private_key = st.secrets["private_key"].replace('\\n', '\n')
@@ -175,6 +193,8 @@ if user_number:
             }) 
             default_app = firebase_admin.initialize_app(cred)
     db = firestore.client()
+
+    generate_initial_message()
     #doc_ref = db.collection(user_number)
     #doc_ref = db.collection(u'tour').document(str(now))
 
