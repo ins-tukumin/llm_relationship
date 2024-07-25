@@ -31,20 +31,38 @@ if "past" not in st.session_state:
 
 if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
-    initial_message = "こんにちは、素晴らしい会話をしよう！"
+    initial_message = "今回はあなたの{worry}について会話しましょう。気軽に話してね"
     st.session_state.initge.append(initial_message)
 #    #st.session_state.past.append("")
 #    message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
     st.session_state['initialized'] = True
-    
 
+# クエリパラメータからユーザーIDを取得
+query_params = st.experimental_get_query_params()
+user_number = query_params.get('user_id', [None])[0]
+is_second = 'second' in query_params
+
+if is_second:
+    # データを読み込み
+    file_path = 'worry2.txt'  # 読み込むファイルのパスを指定
+    if 'worries' not in st.session_state:
+        st.session_state.worries = load_worries(file_path)
+    if 'worry' not in st.session_state:
+        st.session_state.worry = get_user_worry(user_id, worries)
+else:
+    # データを読み込み
+    file_path = 'worry1.txt'  # 読み込むファイルのパスを指定
+    if 'worries' not in st.session_state:
+        st.session_state.worries = load_worries(file_path)
+    if 'worry' not in st.session_state:
+        st.session_state.worry = get_user_worry(user_id, worries)
 # 環境変数の読み込み
 #from dotenv import load_dotenv
 #load_dotenv()
 
 #プロンプトテンプレートを作成
 template = """
-    この会話では私のお悩み相談に乗ってほしいです。悩みは人間関係に関するものです。
+    この会話では私のお悩み相談に乗ってほしいです。悩みは{worry}です。
     敬語は使わないでください。私の友達になったつもりで砕けた口調で話してください。
     150~200字程度で話してください。
     日本語で話してください。
@@ -143,6 +161,19 @@ def load_conversation():
 if 'count' not in st.session_state:
     st.session_state.count = 0
 
+# worry.txtファイルを読み込み
+def load_worries(file_path):
+    worries = {}
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            user_id, worry = line.strip().split(',', 1)  # 一行ずつ読み込み、カンマで分割
+            worries[int(user_id)] = worry  # 辞書に格納
+    return worries
+
+# 特定のユーザーIDに対応する悩みテーマを取得
+def get_user_worry(user_id, worries):
+    return worries.get(user_id, None)
+
 # 送信ボタンがクリックされた後の処理を行う関数を定義
 def on_input_change():
     # 会話のターン数をカウント
@@ -183,8 +214,8 @@ def on_input_change():
 # user_number = st.text_input("IDを半角で入力してエンターを押してください")
 
 # クエリパラメータからユーザーIDを取得
-query_params = st.experimental_get_query_params()
-user_number = query_params.get('user_id', [None])[0]
+#query_params = st.experimental_get_query_params()
+#user_number = query_params.get('user_id', [None])[0]
 
 # ユーザーIDがない場合にのみ入力フィールドを表示
 if not user_number:
