@@ -23,7 +23,7 @@ import time
 global now
 now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
 
-if 'initialized' not in st.session_state:
+if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
     st.session_state['generated'] = ["おはようございます！お悩み相談をしましょう！"]  # 初回挨拶メッセージ
     st.session_state['past'] = []
