@@ -27,6 +27,9 @@ if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
     st.session_state['generated'] = ["おはようございます！お悩み相談をしましょう！"]  # 初回挨拶メッセージ
     st.session_state['past'] = []
+    message(st.session_state.generated[0], key="init_greeting", avatar_style="micah")
+    st.session_state['initialized'] = True
+    
 
 # 環境変数の読み込み
 #from dotenv import load_dotenv
@@ -210,17 +213,16 @@ if user_number:
 
     # 会話履歴を表示
     with chat_placeholder.container():
-        if st.session_state['initialized']:
-            for i in range(len(st.session_state.generated)):
-                message(st.session_state.past[i],is_user=True, key=str(i), avatar_style="adventurer", seed="Nala")
-                key_generated = str(i) + "keyg"
-                message(st.session_state.generated[i], key=str(key_generated), avatar_style="micah")
-            else:
-                message(st.session_state.generated[0], key="init_greeting", avatar_style="micah")
+        for i in range(len(st.session_state.generated)):
+            message(st.session_state.past[i],is_user=True, key=str(i), avatar_style="adventurer", seed="Nala")
+            key_generated = str(i) + "keyg"
+            message(st.session_state.generated[i], key=str(key_generated), avatar_style="micah")
+            #else:
+                #message(st.session_state.generated[0], key="init_greeting", avatar_style="micah")
 
     # 初回アクセス時の挨拶メッセージが表示された後にセッションステートを更新
-    if not st.session_state['initialized']:
-        st.session_state['initialized'] = True
+    #if not st.session_state['initialized']:
+    #    st.session_state['initialized'] = True
 
     # 質問入力欄と送信ボタンを設置
     with st.container():
