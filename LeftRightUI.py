@@ -53,7 +53,7 @@ if is_second:
     if 'worries' not in st.session_state:
         for enc in ['utf-8', 'shift_jis', 'iso-2022-jp']:
             st.session_state.worries = load_worries(file_path, encoding=enc)
-             if st.session_state.worries:
+            if st.session_state.worries:
                 break
     if 'worry' not in st.session_state:
         st.session_state.worry = get_user_worry(user_number, st.session_state.worries)
