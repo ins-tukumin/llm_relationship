@@ -75,7 +75,7 @@ if "initialized" not in st.session_state:
 #    #st.session_state.past.append("")
 #    message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
     st.session_state['initialized'] = True
-st.write(f"こんにちは、{st.session_state.worry}さん！"
+st.write(f"こんにちは、{st.session_state.worry}さん！")
 
 #プロンプトテンプレートを作成
 #悩みは{st.session_state.worry}です。悩みは知らないはず。このボットは。
