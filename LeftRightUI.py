@@ -31,7 +31,7 @@ if "past" not in st.session_state:
 
 # クエリパラメータからユーザーIDを取得
 query_params = st.experimental_get_query_params()
-user_number = query_params.get('user_id', [None])[0]
+user_id = query_params.get('user_id', [None])[0]
 is_second = 'second' in query_params
 
 # worry.txtファイルを読み込み
@@ -56,14 +56,14 @@ if is_second:
             if st.session_state.worries:
                 break
     if 'worry' not in st.session_state:
-        st.session_state.worry = get_user_worry(user_number, st.session_state.worries)
+        st.session_state.worry = get_user_worry(user_id, st.session_state.worries)
 else:
     # データを読み込み
     file_path = 'worry1.txt'  # 読み込むファイルのパスを指定
     if 'worries' not in st.session_state:
         st.session_state.worries = load_worries(file_path)
     if 'worry' not in st.session_state:
-        st.session_state.worry = get_user_worry(user_number, st.session_state.worries)
+        st.session_state.worry = get_user_worry(user_id, st.session_state.worries)
 # 環境変数の読み込み
 #from dotenv import load_dotenv
 #load_dotenv()
@@ -201,7 +201,7 @@ def on_input_change():
     st.session_state.user_message = ""
     Human_Agent = "Human" 
     AI_Agent = "AI" 
-    doc_ref = db.collection(user_number).document(str(now))
+    doc_ref = db.collection(user_id).document(str(now))
     doc_ref.set({
         Human_Agent: user_message,
         AI_Agent: answer
@@ -216,18 +216,18 @@ def on_input_change():
 # st.title("ChatApp")
 # st.caption("Q&A")
 # st.write("議論を行いましょう！")
-# user_number = st.text_input("IDを半角で入力してエンターを押してください")
+# user_id = st.text_input("IDを半角で入力してエンターを押してください")
 
 # クエリパラメータからユーザーIDを取得
 #query_params = st.experimental_get_query_params()
-#user_number = query_params.get('user_id', [None])[0]
+#user_id = query_params.get('user_id', [None])[0]
 
 # ユーザーIDがない場合にのみ入力フィールドを表示
-if not user_number:
-    user_number = st.text_input("IDを半角で入力してエンターを押してください")
+if not user_id:
+    user_id = st.text_input("IDを半角で入力してエンターを押してください")
 
-if user_number:
-    st.write(f"こんにちは、{user_number}さん！")
+if user_id:
+    st.write(f"こんにちは、{user_id}さん！")
     # 初期済みでない場合は初期化処理を行う
     if not firebase_admin._apps:
             private_key = st.secrets["private_key"].replace('\\n', '\n')
@@ -248,7 +248,7 @@ if user_number:
     db = firestore.client()
 
     #generate_initial_message()
-    #doc_ref = db.collection(user_number)
+    #doc_ref = db.collection(user_id)
     #doc_ref = db.collection(u'tour').document(str(now))
 
     # 会話履歴を表示するためのスペースを確保
