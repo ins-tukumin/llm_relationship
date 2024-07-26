@@ -72,10 +72,10 @@ else:
 #load_dotenv()
 if 'worries' in st.session_state:
     st.write(st.session_state.worries)  # デバッグ用
-    if user_number in st.session_state.worries:
-        st.write(f"Worry found for user: {st.session_state.worries[user_number]}")  # デバッグ用
+    if user_id in st.session_state.worries:
+        st.write(f"Worry found for user: {st.session_state.worries[user_id]}")  # デバッグ用
     else:
-        st.write("User number not found in worries")
+        st.write("User id not found in worries")
 
 if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
