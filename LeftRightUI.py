@@ -35,9 +35,9 @@ user_number = query_params.get('user_id', [None])[0]
 is_second = 'second' in query_params
 
 # worry.txtファイルを読み込み
-def load_worries(file_path):
+def load_worries(file_path, encoding):
     worries = {}
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path, 'r', encoding=encoding) as file:
         for line in file:
             user_id, worry = line.strip().split(',', 1)  # 一行ずつ読み込み、カンマで分割
             worries[int(user_id)] = worry  # 辞書に格納
