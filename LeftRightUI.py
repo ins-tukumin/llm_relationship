@@ -37,10 +37,13 @@ is_second = 'second' in query_params
 # worry.txtファイルを読み込み
 def load_worries(file_path, encoding):
     worries = {}
-    with open(file_path, 'r', encoding=encoding) as file:
-        for line in file:
-            user_id, worry = line.strip().split(',', 1)  # 一行ずつ読み込み、カンマで分割
-            worries[int(user_id)] = worry  # 辞書に格納
+    try:
+        with open(file_path, 'r', encoding=encoding) as file:
+            for line in file:
+                user_id, worry = line.strip().split(',', 1)
+                worries[int(user_id)] = worry
+    except Exception as e:
+        st.write(f"Error loading worries: {e}")  # エラー表示用
     return worries
 
 # 特定のユーザーIDに対応する悩みテーマを取得
@@ -67,6 +70,12 @@ else:
 # 環境変数の読み込み
 #from dotenv import load_dotenv
 #load_dotenv()
+if 'worries' in st.session_state:
+    st.write(st.session_state.worries)  # デバッグ用
+    if user_number in st.session_state.worries:
+        st.write(f"Worry found for user: {st.session_state.worries[user_number]}")  # デバッグ用
+    else:
+        st.write("User number not found in worries")
 
 if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
