@@ -33,6 +33,7 @@ if "past" not in st.session_state:
 query_params = st.experimental_get_query_params()
 user_id = query_params.get('user_id', [None])[0]
 is_second = 'second' in query_params
+user_id =int(user_id)
 
 # worry.txtファイルを読み込み
 def load_worries(file_path, encoding):
