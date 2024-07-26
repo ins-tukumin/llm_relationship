@@ -77,7 +77,7 @@ if 'worries' in st.session_state:
 
 if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
-    initial_message = f"今回はあなたの{st.session_state.worry}について会話しましょう。気軽に話してね"
+    initial_message = f"今回はあなたの、{st.session_state.worry}について会話しましょう。気軽に話してね"
     st.session_state.initge.append(initial_message)
 #    #st.session_state.past.append("")
 #    message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
