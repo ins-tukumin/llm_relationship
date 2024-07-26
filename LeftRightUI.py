@@ -208,7 +208,7 @@ def on_input_change():
     st.session_state.user_message = ""
     Human_Agent = "Human" 
     AI_Agent = "AI" 
-    doc_ref = db.collection(user_id).document(str(now))
+    doc_ref = db.collection(str(user_id)).document(str(now))
     doc_ref.set({
         Human_Agent: user_message,
         AI_Agent: answer
