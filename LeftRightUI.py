@@ -51,7 +51,10 @@ if is_second:
     # データを読み込み
     file_path = 'worry2.txt'  # 読み込むファイルのパスを指定
     if 'worries' not in st.session_state:
-        st.session_state.worries = load_worries(file_path)
+        for enc in ['utf-8', 'shift_jis', 'iso-2022-jp']:
+            st.session_state.worries = load_worries(file_path, encoding=enc)
+             if st.session_state.worries:
+                break
     if 'worry' not in st.session_state:
         st.session_state.worry = get_user_worry(user_number, st.session_state.worries)
 else:
