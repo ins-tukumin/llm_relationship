@@ -79,7 +79,7 @@ if 'worry' not in st.session_state:
 #    if user_id in st.session_state.worries:
         #st.write(f"Worry found for user: {st.session_state.worries[user_id]}")  # デバッグ用
 #    else:
-        st.write("User id not found in worries")
+#        st.write("User id not found in worries")
 
 if "initialized" not in st.session_state:
     st.session_state['initialized'] = False
