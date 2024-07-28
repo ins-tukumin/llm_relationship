@@ -75,9 +75,9 @@ if 'worry' not in st.session_state:
 #from dotenv import load_dotenv
 #load_dotenv()
 if 'worries' in st.session_state:
-    st.write(st.session_state.worries)  # デバッグ用
+    #st.write(st.session_state.worries)  # デバッグ用
     if user_id in st.session_state.worries:
-        st.write(f"Worry found for user: {st.session_state.worries[user_id]}")  # デバッグ用
+        #st.write(f"Worry found for user: {st.session_state.worries[user_id]}")  # デバッグ用
     else:
         st.write("User id not found in worries")
 
@@ -88,7 +88,7 @@ if "initialized" not in st.session_state:
 #    #st.session_state.past.append("")
 #    message(st.session_state.initge[0], key="init_greeting", avatar_style="micah")
     st.session_state['initialized'] = True
-st.write(f"こんにちは、{st.session_state.worry}さん！")
+#st.write(f"こんにちは、{st.session_state.worry}さん！")
 
 #プロンプトテンプレートを作成
 #悩みは{st.session_state.worry}です。悩みは知らないはず。このボットは。
@@ -240,7 +240,7 @@ if not user_id:
     user_id = st.text_input("IDを半角で入力してエンターを押してください")
 
 if user_id:
-    st.write(f"こんにちは、{user_id}さん！")
+    #st.write(f"こんにちは、{user_id}さん！")
     # 初期済みでない場合は初期化処理を行う
     if not firebase_admin._apps:
             private_key = st.secrets["private_key"].replace('\\n', '\n')
