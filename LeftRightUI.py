@@ -52,12 +52,17 @@ def load_worries(file_path, encoding):
 def get_user_worry(user_id, worries):
     return worries.get(user_id, None)
 
+# データを読み込み
 if is_second:
-    # データを読み込み
-    file_path = 'worry2.txt'  # 読み込むファイルのパスを指定
+    if group in ['groupd', 'grouph']:
+        file_path = 'worry1.txt'
+    elif group in ['groupc', 'groupg']:
+        file_path = 'worry2.txt'
 else:
-    # データを読み込み
-    file_path = 'worry1.txt'  # 読み込むファイルのパスを指定
+    if group in ['groupa', 'groupe']:
+        file_path = 'worry1.txt'
+    elif group in ['groupb', 'groupf']:
+        file_path = 'worry2.txt'
     
 if 'worries' not in st.session_state:
     for enc in ['utf-8', 'shift_jis', 'iso-2022-jp']:
@@ -90,7 +95,7 @@ st.write(f"こんにちは、{st.session_state.worry}さん！")
 template = """
     この会話では私のお悩み相談に乗ってほしいです。
     敬語は使わないでください。私の友達になったつもりで砕けた口調で話してください。
-    150~200字程度で話してください。
+    100字以内で話してください。
     日本語で話してください。
 """
 
