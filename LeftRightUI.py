@@ -74,11 +74,11 @@ if 'worry' not in st.session_state:
 # 環境変数の読み込み
 #from dotenv import load_dotenv
 #load_dotenv()
-if 'worries' in st.session_state:
+#if 'worries' in st.session_state:
     #st.write(st.session_state.worries)  # デバッグ用
-    if user_id in st.session_state.worries:
+#    if user_id in st.session_state.worries:
         #st.write(f"Worry found for user: {st.session_state.worries[user_id]}")  # デバッグ用
-    else:
+#    else:
         st.write("User id not found in worries")
 
 if "initialized" not in st.session_state:
